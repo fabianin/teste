@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var cache = require('express-redis-cache')({
+  host: 'redis'
+ });
 
 
 // http://localhost:3000/
@@ -12,12 +15,12 @@ router.get('/', function(req, res, next) {
 });
 
 
-//////////////////////
+///////////////////////
 // Postgres queries
 //////////////////////
 
 var db = require('./queries');
 
-router.get('/api/registers', db.getRegisters);
+router.get('/api/registers',cache.route() ,db.getRegisters);
 
 module.exports = router;
