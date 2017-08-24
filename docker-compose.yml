@@ -1,6 +1,17 @@
-version: '3.1'
+version: '2'
 services:
   db:
     build: ./db
     ports:
       - "5432:5432"
+  node_server:
+    build: ./node-postgres-api
+    command: "nodemon server.js"
+    volumes:
+      - /home/fabiano/desafio/node-postgres-api/:/app
+    ports:
+      - "3002:3000"
+    links:
+      - "db"
+    depends_on:
+      - db

@@ -6,12 +6,10 @@ var Register     = require('./models/register');
 var User = require('./models/user')
 var userController = require('./controllers/registersController')
 
-// Middleware for all this routers requests
 router.use(function timeLog(req, res, next) {
   console.log('Request Received: ', dateDisplayed(Date.now()));
   next();
 });
-// Welcome message for a GET at http://localhost:8080/restapi
 router.route('/').get(function(req, res) {
     res.json({ message: 'the API is in /api :)' });   
 });

@@ -5,14 +5,14 @@ var routes     = require('./routes');
 var config     = require("./config")
 var mongoose = require("mongoose");
 
-mongoose.connect(config.database);
+//mongoose.connect(config.database);
 
 // Express app will use body-parser to get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('superSecreto',config.secret)
 // Set port
-var port = process.env.PORT || 3002;        // set the port
+var port = process.env.PORT || 3000;        // set the port
 
 // Define a prefix for all routes
 // Can define something unique like MyRestAPI
