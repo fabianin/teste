@@ -8,7 +8,7 @@ services:
     build: ./node-postgres-api
     command: "nodemon server.js"
     volumes:
-      - /home/fabiano/desafio/node-postgres-api/:/app
+      - ./node-postgres-api/:/app
     ports:
       - "3002:3000"
     links:

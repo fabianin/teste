@@ -15,13 +15,14 @@ var db = pgp(connectionString);
 /////////////////////
 
 function getRegisters(req, res, next) {
-  db.any('SELECT * FROM picpay.registers limit 15')
+  var pattern = req.params.pattern;
+  db.any('SELECT * FROM picpay.registers where name LIKE \''+pattern+'\%\' limit 15')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all starships'
+          message: 'Retrieved all data'
         });
     })
     .catch(function (err) {
