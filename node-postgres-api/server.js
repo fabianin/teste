@@ -8,7 +8,7 @@ var app = express();
 
 
 ///////////////////////
-// Server Middleware
+/// Server Middleware
 ///////////////////////
 
 app.use(logger(app.get("env") === "production" ? "combined" : "dev"));

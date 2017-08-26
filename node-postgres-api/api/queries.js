@@ -23,7 +23,7 @@ var db = pgp(connectionString);
 //           status: 'success',
 //           data: data,
 //           message: 'Retrieved all data'
-//         });
+//         });;;
 //     })
 //     .catch(function (err) {
 //       return next(err);
@@ -31,15 +31,18 @@ var db = pgp(connectionString);
 // }
 
 function getRegisters(req, res, next) {
+  var page =  Math.max((15*(parseInt(req.query.offset)-1)),0);
+  var query=decodeURI(req.query.name);
+  console.log(query);
   db.any('SELECT users.* FROM picpay.registers users ' +
               'LEFT JOIN picpay.rank1 ON rank1.id = users.id ' +
               'LEFT JOIN picpay.rank2 ON rank2.id = users.id ' +
-              'WHERE users.name LIKE \'${name:value}%\' ' +
+              'WHERE lower(users.name) LIKE lower(\'${name:value}%\') ' +
               'OR users.username LIKE \'${name:value}%\' '+
               'ORDER BY rank1.id is null, rank2.id is null, users.id ' +
               'LIMIT 15 OFFSET ${offset:value}', {
-      name: req.query.name,
-      offset: 15*(parseInt(req.query.offset)-1)
+      name: query,
+      offset: page
     })
     .then(function (data) {
       res.status(200)
